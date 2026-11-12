@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Resultados de ejecución: se generan en cada corrida y no se versionan.
+# Se conservan las carpetas vacías gracias al .gitkeep.
+reports/*
+!reports/.gitkeep
+logs/*
+!logs/.gitkeep

@@ -1,0 +1,54 @@
+name: CI Automation Testing          # Nombre del workflow (aparece en la pestaña Actions)
+
+on:                                 # EVENTOS: cuándo se ejecuta
+  push:                             # cada push a cualquier rama
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:                # ejecución manual desde GitHub
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest          # RUNNER: máquina Ubuntu con Chrome preinstalado
+    timeout-minutes: 15
+    env:
+      PYTHON_VERSION: '3.12'
+      HEADLESS: 'true'              # Chrome sin interfaz gráfica en el runner
+
+    steps:
+      # 1 · Descargar el código del repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # 2 · Instalar Python (con cache de pip para acelerar las siguientes corridas)
+      - name: Instalar Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      # 3 · Instalar dependencias
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      # 4 · Ejecutar toda la suite (UI + API). pytest.ini ya genera el reporte HTML
+      - name: Ejecutar pruebas UI y API
+        run: |
+          mkdir -p reports logs
+          pytest
+
+      # 5 · Publicar evidencias aunque haya tests fallidos (if: always())
+      - name: Subir reporte HTML y screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-html
+          path: reports/
+          retention-days: 30
+
+      - name: Subir log de ejecución
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: suite-log
+          path: logs/
+          retention-days: 30

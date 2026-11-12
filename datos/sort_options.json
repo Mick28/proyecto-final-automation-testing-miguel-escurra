@@ -1,0 +1,6 @@
+[
+  {"opcion": "az",   "campo": "nombre", "descendente": false},
+  {"opcion": "za",   "campo": "nombre", "descendente": true},
+  {"opcion": "lohi", "campo": "precio", "descendente": false},
+  {"opcion": "hilo", "campo": "precio", "descendente": true}
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "caso": "post_simple",
+    "title": "Proyecto final de Automation Testing",
+    "body": "Post creado desde pytest + requests",
+    "userId": 1
+  },
+  {
+    "caso": "post_con_acentos",
+    "title": "Pruebas de API: validación de respuestas",
+    "body": "Contenido con acentos, eñes y símbolos: ¿funciona? ¡sí!",
+    "userId": 5
+  },
+  {
+    "caso": "post_otro_usuario",
+    "title": "Encadenamiento de peticiones",
+    "body": "El userId devuelto se usa en la siguiente petición",
+    "userId": 10
+  }
+]
